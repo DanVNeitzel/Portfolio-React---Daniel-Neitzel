@@ -9,7 +9,7 @@
 
 Um portfolio moderno e responsivo desenvolvido em React com as melhores práticas de desenvolvimento web. Este projeto demonstra habilidades avançadas em desenvolvimento front-end, incluindo integração com APIs, gerenciamento de estado, animações fluidas e Progressive Web App (PWA).
 
-[Demo ao Vivo](https://danielneitzel.dev) · [Reportar Bug](https://github.com/DanVNeitzel/portfolio-react/issues) · [Solicitar Feature](https://github.com/DanVNeitzel/portfolio-react/issues)
+[Demo ao Vivo](https://danielneitzel.dev) · [Reportar Bug](https://github.com/DanielvNeitzel/portfolio-react/issues) · [Solicitar Feature](https://github.com/DanielvNeitzel/portfolio-react/issues)
 
 ### 🎯 Highlights
 
@@ -51,7 +51,7 @@ Um portfolio moderno e responsivo desenvolvido em React com as melhores prática
 
 ```bash
 # Clone o repositório
-git clone https://github.com/DanVNeitzel/portfolio-react.git
+git clone https://github.com/DanielvNeitzel/portfolio-react.git
 
 # Entre no diretório
 cd portfolio-react
@@ -343,7 +343,7 @@ Dados estáticos e configurações:
 
 1. **Clone o repositório**
    ```bash
-   git clone https://github.com/DanVNeitzel/portfolio-react.git
+   git clone https://github.com/DanielvNeitzel/portfolio-react.git
    cd portfolio-react
    ```
 
@@ -1338,7 +1338,7 @@ Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) par
 Desenvolvedor Front-End especializado em React, Angular e JavaScript
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white)](https://danielneitzel.dev)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DanVNeitzel)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DanielvNeitzel)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/danielneitzel)
 
 </div>
@@ -1355,14 +1355,14 @@ Desenvolvedor Front-End especializado em React, Angular e JavaScript
 
 - **Email**: daniel@neitzel.dev
 - **Portfolio**: [danielneitzel.dev](https://danielneitzel.dev)
-- **GitHub**: [@DanVNeitzel](https://github.com/DanVNeitzel)
+- **GitHub**: [@DanielvNeitzel](https://github.com/DanielvNeitzel)
 - **LinkedIn**: [danielneitzel](https://www.linkedin.com/in/danielneitzel)
 
 ## ⭐ Projetos Relacionados
 
-- [**Formatador de Código**](https://github.com/DanVNeitzel/formatador-de-codigo) - Formatador JS com bibliotecas de configuração
-- [**Enter The Matrix**](https://github.com/DanVNeitzel/EnterTheMatrix) - Recriação do efeito Matrix em JavaScript
-- [**Player de Música**](https://github.com/DanVNeitzel/PiuPlayerWeb) - Player web com Web Audio API
+- [**Formatador de Código**](https://github.com/DanielvNeitzel/formatador-de-codigo) - Formatador JS com bibliotecas de configuração
+- [**Enter The Matrix**](https://github.com/DanielvNeitzel/EnterTheMatrix) - Recriação do efeito Matrix em JavaScript
+- [**Player de Música**](https://github.com/DanielvNeitzel/PiuPlayerWeb) - Player web com Web Audio API
 
 ## 🙏 Agradecimentos
 
@@ -1373,11 +1373,11 @@ Desenvolvedor Front-End especializado em React, Angular e JavaScript
 
 ## 📊 Status do Projeto
 
-![GitHub last commit](https://img.shields.io/github/last-commit/DanVNeitzel/portfolio-react?style=flat-square)
-![GitHub repo size](https://img.shields.io/github/repo-size/DanVNeitzel/portfolio-react?style=flat-square)
-![GitHub stars](https://img.shields.io/github/stars/DanVNeitzel/portfolio-react?style=flat-square)
-![GitHub forks](https://img.shields.io/github/forks/DanVNeitzel/portfolio-react?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/DanVNeitzel/portfolio-react?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/DanielvNeitzel/portfolio-react?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/DanielvNeitzel/portfolio-react?style=flat-square)
+![GitHub stars](https://img.shields.io/github/stars/DanielvNeitzel/portfolio-react?style=flat-square)
+![GitHub forks](https://img.shields.io/github/forks/DanielvNeitzel/portfolio-react?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/DanielvNeitzel/portfolio-react?style=flat-square)
 
 ## 📚 Recursos Úteis
 
@@ -1404,7 +1404,7 @@ Desenvolvedor Front-End especializado em React, Angular e JavaScript
 
 ### ⭐ Se este projeto foi útil para você, considere dar uma estrela! ⭐
 
-**Desenvolvido com ❤️ por [Daniel Neitzel](https://github.com/DanVNeitzel)**
+**Desenvolvido com ❤️ por [Daniel Neitzel](https://github.com/DanielvNeitzel)**
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
