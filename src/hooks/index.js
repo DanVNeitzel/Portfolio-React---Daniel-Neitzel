@@ -4,14 +4,14 @@ export const useScrollPosition = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
-    const updatePosition = () => {
-      setScrollPosition(window.pageYOffset);
-    };
+  const updatePosition = () => {
+  setScrollPosition(window.pageYOffset);
+  };
 
-    window.addEventListener('scroll', updatePosition);
-    updatePosition();
+  window.addEventListener('scroll', updatePosition);
+  updatePosition();
 
-    return () => window.removeEventListener('scroll', updatePosition);
+  return () => window.removeEventListener('scroll', updatePosition);
   }, []);
 
   return scrollPosition;
@@ -19,22 +19,22 @@ export const useScrollPosition = () => {
 
 export const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 0,
-    height: typeof window !== 'undefined' ? window.innerHeight : 0,
+  width: typeof window !== 'undefined' ? window.innerWidth : 0,
+  height: typeof window !== 'undefined' ? window.innerHeight : 0,
   });
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
+  const handleResize = () => {
+  setWindowSize({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  });
+  };
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
+  window.addEventListener('resize', handleResize);
+  handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return windowSize;
@@ -52,23 +52,23 @@ export const useToggle = (initialValue = false) => {
 
 export const useLocalStorage = (key, initialValue) => {
   const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
-      return initialValue;
-    }
+  try {
+  const item = window.localStorage.getItem(key);
+  return item ? JSON.parse(item) : initialValue;
+  } catch (error) {
+  console.error(`Error reading localStorage key "${key}":`, error);
+  return initialValue;
+  }
   });
 
   const setValue = (value) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.error(`Error setting localStorage key "${key}":`, error);
-    }
+  try {
+  const valueToStore = value instanceof Function ? value(storedValue) : value;
+  setStoredValue(valueToStore);
+  window.localStorage.setItem(key, JSON.stringify(valueToStore));
+  } catch (error) {
+  console.error(`Error setting localStorage key "${key}":`, error);
+  }
   };
 
   return [storedValue, setValue];
@@ -79,19 +79,19 @@ export const useIntersectionObserver = (options = {}) => {
   const [targetRef, setTargetRef] = useState(null);
 
   useEffect(() => {
-    if (!targetRef) return;
+  if (!targetRef) return;
 
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsIntersecting(entry.isIntersecting);
-    }, options);
+  const observer = new IntersectionObserver(([entry]) => {
+  setIsIntersecting(entry.isIntersecting);
+  }, options);
 
-    observer.observe(targetRef);
+  observer.observe(targetRef);
 
-    return () => {
-      if (targetRef) {
-        observer.unobserve(targetRef);
-      }
-    };
+  return () => {
+  if (targetRef) {
+  observer.unobserve(targetRef);
+  }
+  };
   }, [targetRef, options]);
 
   return [setTargetRef, isIntersecting];

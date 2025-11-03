@@ -8,7 +8,10 @@ import { useGitHubRepositories } from '../hooks/useGitHubRepositories';
 
 const ProjectsSection = styled(Section)`
   background: ${props => props.theme.colors.background};
-  padding: ${props => props.theme.spacing.xxl} 0;
+  padding: 2rem 0;
+  @media (max-width: ${props => props.theme.breakpoints.desktop}) {
+    padding: 7rem 0!important;
+  }
 `;
 
 const FilterContainer = styled.div`
@@ -26,7 +29,7 @@ const FilterGrid = styled.div`
   margin-bottom: ${props => props.theme.spacing.md};
 
   @media (max-width: ${props => props.theme.breakpoints.tablet}) {
-    grid-template-columns: 1fr;
+  grid-template-columns: 1fr;
   }
 `;
 
@@ -40,12 +43,12 @@ const FilterInput = styled.input`
   transition: border-color 0.3s ease;
 
   &:focus {
-    outline: none;
-    border-color: ${props => props.theme.colors.primary};
+  outline: none;
+  border-color: ${props => props.theme.colors.primary};
   }
 
   &::placeholder {
-    color: ${props => props.theme.colors.textMuted};
+  color: ${props => props.theme.colors.textMuted};
   }
 `;
 
@@ -60,13 +63,13 @@ const FilterSelect = styled.select`
   transition: border-color 0.3s ease;
 
   &:focus {
-    outline: none;
-    border-color: ${props => props.theme.colors.primary};
+  outline: none;
+  border-color: ${props => props.theme.colors.primary};
   }
 
   option {
-    background: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.text};
+  background: ${props => props.theme.colors.background};
+  color: ${props => props.theme.colors.text};
   }
 `;
 
@@ -81,15 +84,38 @@ const FilterChip = styled.button`
   background: ${props => props.$active ? props.theme.colors.primary : 'transparent'};
   color: ${props => props.$active ? props.theme.colors.background : props.theme.colors.primary};
   border: 1px solid ${props => props.theme.colors.primary};
-  padding: ${props => props.theme.spacing.xs} ${props => props.theme.spacing.sm};
-  border-radius: 20px;
-  font-size: 0.8rem;
+  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: ${props => props.theme.spacing.xs};
 
   &:hover {
-    background: ${props => props.theme.colors.primary};
-    color: ${props => props.theme.colors.background};
+  background: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.background};
+  transform: translateY(-2px);
+  box-shadow: ${props => props.theme.shadows.medium};
+  }
+
+  &.gradient {
+  background: ${props => props.theme.colors.gradient};
+  border: none;
+  color: ${props => props.theme.colors.background};
+  
+  &:hover {
+  background: ${props => props.theme.colors.gradient};
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: ${props => props.theme.shadows.medium};
+  }
+  }
+
+  i {
+  font-size: 0.9rem;
   }
 `;
 
@@ -109,19 +135,19 @@ const StatCard = styled.div`
   min-width: 120px;
 
   .number {
-    font-size: 1.5rem;
-    font-weight: 700;
-    background: ${props => props.theme.colors.gradientText};
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: ${props => props.theme.colors.gradientText};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
   }
 
   .label {
-    font-size: 0.8rem;
-    color: ${props => props.theme.colors.textMuted};
-    margin-top: ${props => props.theme.spacing.xs};
+  font-size: 0.8rem;
+  color: ${props => props.theme.colors.textMuted};
+  margin-top: ${props => props.theme.spacing.xs};
   }
 `;
 
@@ -150,24 +176,24 @@ const SkeletonCard = styled.div`
   position: relative;
 
   &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.05),
-      transparent
-    );
-    animation: shimmer 1.5s infinite;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+  90deg,
+  transparent,
+  rgba(255, 255, 255, 0.05),
+  transparent
+  );
+  animation: shimmer 1.5s infinite;
   }
 
   @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
   }
 `;
 
@@ -177,14 +203,14 @@ const ErrorContainer = styled.div`
   color: ${props => props.theme.colors.textMuted};
 
   .icon {
-    font-size: 4rem;
-    margin-bottom: ${props => props.theme.spacing.lg};
-    opacity: 0.5;
+  font-size: 4rem;
+  margin-bottom: ${props => props.theme.spacing.lg};
+  opacity: 0.5;
   }
 
   .message {
-    font-size: 1.1rem;
-    margin-bottom: ${props => props.theme.spacing.lg};
+  font-size: 1.1rem;
+  margin-bottom: ${props => props.theme.spacing.lg};
   }
 `;
 
@@ -196,8 +222,8 @@ const ProjectsGrid = styled(motion.div)`
   margin: ${props => props.theme.spacing.xxl} 0;
 
   @media (max-width: ${props => props.theme.breakpoints.tablet}) {
-    grid-template-columns: 1fr;
-    gap: ${props => props.theme.spacing.lg};
+  grid-template-columns: 1fr;
+  gap: ${props => props.theme.spacing.lg};
   }
 `;
 
@@ -215,26 +241,26 @@ const ProjectCard = styled(motion.div)`
   flex-direction: column;
 
   &:hover {
-    border-color: ${props => props.theme.colors.primary};
-    transform: translateY(-5px);
-    box-shadow: ${props => props.theme.shadows.strong};
+  border-color: ${props => props.theme.colors.primary};
+  transform: translateY(-5px);
+  box-shadow: ${props => props.theme.shadows.strong};
   }
 
   &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: ${props => props.theme.colors.gradientText};
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: ${props => props.theme.colors.gradientText};
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
   }
 
   &:hover::before {
-    transform: scaleX(1);
+  transform: scaleX(1);
   }
 `;
 
@@ -274,7 +300,7 @@ const StatItem = styled.div`
   color: ${props => props.theme.colors.textMuted};
 
   i {
-    color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.primary};
   }
 `;
 
@@ -291,11 +317,11 @@ const LanguageBadge = styled.span`
   border: 1px solid ${props => props.theme.colors.border};
 
   &::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: ${props => props.color || props.theme.colors.primary};
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: ${props => props.color || props.theme.colors.primary};
   }
 `;
 
@@ -310,19 +336,19 @@ const ProjectImage = styled.div`
   overflow: hidden;
 
   &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(91, 255, 139, 0.1), rgba(0, 255, 255, 0.1));
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(91, 255, 139, 0.1), rgba(0, 255, 255, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
   }
 
   ${ProjectCard}:hover &::after {
-    opacity: 1;
+  opacity: 1;
   }
 `;
 
@@ -391,13 +417,13 @@ const ActionButton = styled.button`
   gap: ${props => props.theme.spacing.xs};
 
   &:hover {
-    background: ${props => props.theme.colors.primary};
-    color: ${props => props.theme.colors.background};
-    transform: translateY(-2px);
+  background: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.background};
+  transform: translateY(-2px);
   }
 
   i {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
   }
 `;
 
@@ -415,15 +441,15 @@ const ModalOverlay = styled(motion.div)`
   padding: ${props => props.theme.spacing.md};
 
   @media (max-width: ${props => props.theme.breakpoints.tablet}) {
-    align-items: flex-start;
-    padding-top: 1rem;
+  align-items: flex-start;
+  padding-top: 1rem;
   }
 `;
 
 const ModalContent = styled(motion.div)`
   background: ${props => props.theme.colors.backgroundAlt};
   border-radius: 12px;
-  max-width: 600px;
+  max-width: 1024px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
@@ -440,11 +466,11 @@ const ModalHeader = styled.div`
   align-items: center;
 
   h2 {
-    margin: 0;
-    background: ${props => props.theme.colors.gradientText};
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  margin: 0;
+  background: ${props => props.theme.colors.gradientText};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   }
 `;
 
@@ -459,8 +485,8 @@ const CloseButton = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    background: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.primary};
+  background: ${props => props.theme.colors.background};
+  color: ${props => props.theme.colors.primary};
   }
 `;
 
@@ -490,9 +516,9 @@ const EmptyState = styled.div`
   color: ${props => props.theme.colors.textMuted};
 
   .icon {
-    font-size: 4rem;
-    margin-bottom: ${props => props.theme.spacing.lg};
-    opacity: 0.5;
+  font-size: 4rem;
+  margin-bottom: ${props => props.theme.spacing.lg};
+  opacity: 0.5;
   }
 `;
 
@@ -500,13 +526,14 @@ const ActionButtons = styled.div`
   display: flex;
   gap: ${props => props.theme.spacing.md};
   justify-content: center;
-  margin-top: ${props => props.theme.spacing.xxl};
+  margin-top: ${props => props.theme.spacing.xl};
+  margin-bottom: ${props => props.theme.spacing.xl};
   flex-wrap: wrap;
+  padding: ${props => props.theme.spacing.md};
+  border-top: 1px solid ${props => props.theme.colors.border};
 `;
 
 const Projects = () => {
-
-
   const [selectedProject, setSelectedProject] = useState(null);
 
   // Always show animations on mount, no scroll/lazy logic
@@ -676,6 +703,17 @@ const Projects = () => {
                 <SkeletonCard key={index} />
               ))}
             </LoadingSkeleton>
+
+            <div>
+              <ActionButtons>
+                <Button
+                  className="gradient"
+                  onClick={() => window.open('https://github.com/DanVNeitzel', '_blank')}
+                >
+                  <i className="fa-brands fa-github"></i> <span>Ver Perfil Completo no GitHub</span>
+                </Button>
+              </ActionButtons>
+            </div>
           </motion.div>
         </Container>
       </ProjectsSection>
@@ -708,6 +746,17 @@ const Projects = () => {
                 </Button>
               </ErrorContainer>
             </motion.div>
+
+            <div>
+              <ActionButtons>
+                <Button
+                  className="gradient"
+                  onClick={() => window.open('https://github.com/DanVNeitzel', '_blank')}
+                >
+                  <i className="fa-brands fa-github"></i> <span>Ver Perfil Completo no GitHub</span>
+                </Button>
+              </ActionButtons>
+            </div>
           </motion.div>
         </Container>
       </ProjectsSection>
@@ -715,7 +764,7 @@ const Projects = () => {
   }
 
   return (
-  <ProjectsSection>
+    <ProjectsSection>
       <Container>
         <motion.div
           variants={shouldShowAnimations ? containerVariants : {}}
@@ -725,7 +774,7 @@ const Projects = () => {
           <motion.div variants={shouldShowAnimations ? itemVariants : {}} style={{ textAlign: 'center' }}>
             <Title $gradient>Meus Repositórios GitHub</Title>
             <Text>
-              Repositórios atualizados em tempo real diretamente do GitHub. 
+              Repositórios atualizados em tempo real diretamente do GitHub.
               Explore os projetos com filtros e visualize detalhes técnicos.
             </Text>
           </motion.div>
@@ -763,7 +812,7 @@ const Projects = () => {
                   value={filters.search}
                   onChange={(e) => handleFilterChange('search', e.target.value)}
                 />
-                
+
                 <FilterSelect
                   value={filters.language}
                   onChange={(e) => handleFilterChange('language', e.target.value)}
@@ -797,22 +846,24 @@ const Projects = () => {
               <FilterActions>
                 <FilterChip
                   $active={filters.excludeForks}
+                  className={filters.excludeForks ? 'gradient' : ''}
                   onClick={() => handleFilterChange('excludeForks', !filters.excludeForks)}
                 >
                   Excluir Forks
                 </FilterChip>
                 <FilterChip
                   $active={filters.excludeArchived}
+                  className={filters.excludeArchived ? 'gradient' : ''}
                   onClick={() => handleFilterChange('excludeArchived', !filters.excludeArchived)}
                 >
                   Excluir Arquivados
                 </FilterChip>
                 {isFiltered && (
-                  <Button onClick={resetFilters} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}>
+                  <Button className="gradient" onClick={resetFilters} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}>
                     Limpar Filtros
                   </Button>
                 )}
-                <Button onClick={refresh} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}>
+                <Button className="gradient" onClick={refresh} style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}>
                   <i className="fa fa-refresh"></i>
                   Atualizar
                 </Button>
@@ -845,9 +896,9 @@ const Projects = () => {
                         </LanguageBadge>
                       )}
                     </ProjectMeta>
-                    
+
                     <ProjectTitle>{repo.title}</ProjectTitle>
-                    
+
                     <ProjectStats>
                       <StatItem>
                         <i className="fa fa-star"></i>
@@ -870,7 +921,7 @@ const Projects = () => {
                     <ProjectDescription>
                       {repo.description || 'Sem descrição disponível.'}
                     </ProjectDescription>
-                    
+
                     <ProjectFooter>
                       {repo.technologies.length > 0 && (
                         <TechStack>
@@ -916,7 +967,7 @@ const Projects = () => {
                 <div className="icon">�</div>
                 <h3>Nenhum repositório encontrado</h3>
                 <p>
-                  {isFiltered 
+                  {isFiltered
                     ? 'Tente ajustar os filtros para encontrar repositórios.'
                     : 'Não foram encontrados repositórios públicos.'
                   }
@@ -930,16 +981,17 @@ const Projects = () => {
             </motion.div>
           ) : null}
 
-          <motion.div variants={shouldShowAnimations ? itemVariants : {}}>
+          {/* Botão GitHub sempre visível */}
+          <div>
             <ActionButtons>
-              <Button 
+              <Button
                 className="gradient"
                 onClick={() => window.open('https://github.com/DanVNeitzel', '_blank')}
               >
                 <i className="fa-brands fa-github"></i> <span>Ver Perfil Completo no GitHub</span>
               </Button>
             </ActionButtons>
-          </motion.div>
+          </div>
         </motion.div>
       </Container>
 
@@ -960,99 +1012,99 @@ const Projects = () => {
                 exit="exit"
                 onClick={(e) => e.stopPropagation()}
               >
-              <ModalHeader>
-                <h2>{selectedProject.title}</h2>
-                <CloseButton onClick={closeProject}>
-                  <i className="fa fa-times"></i>
-                </CloseButton>
-              </ModalHeader>
+                <ModalHeader>
+                  <h2>{selectedProject.title}</h2>
+                  <CloseButton onClick={closeProject}>
+                    <i className="fa fa-times"></i>
+                  </CloseButton>
+                </ModalHeader>
 
-              <ModalBody>
-                <div style={{ marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
-                    {selectedProject.language && (
-                      <LanguageBadge color={getLanguageColor(selectedProject.language)}>
-                        {selectedProject.language}
-                      </LanguageBadge>
-                    )}
-                    <StatItem>
-                      <i className="fa fa-star"></i>
-                      {selectedProject.stars} stars
-                    </StatItem>
-                    <StatItem>
-                      <i className="fa fa-code-fork"></i>
-                      {selectedProject.forks} forks
-                    </StatItem>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', fontSize: '0.9rem', color: '#999' }}>
-                    <span>
-                      <i className="fa fa-calendar"></i> <span>Criado em {formatDate(selectedProject.created_at)}</span>
-                    </span>
-                    <span>
-                      <i className="fa fa-clock"></i> <span>Atualizado em {formatDate(selectedProject.updated_at)}</span>
-                    </span>
-                  </div>
-                </div>
-                
-                <Text>{selectedProject.description || 'Sem descrição disponível.'}</Text>
-
-                {selectedProject.technologies.length > 0 && (
+                <ModalBody>
                   <div style={{ marginBottom: '1rem' }}>
-                    <strong>Tecnologias utilizadas:</strong>
-                    <TechStack style={{ marginTop: '0.5rem' }}>
-                      {selectedProject.technologies.map((tech, index) => (
-                        <TechTag key={index}>{tech}</TechTag>
-                      ))}
-                    </TechStack>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
+                      {selectedProject.language && (
+                        <LanguageBadge color={getLanguageColor(selectedProject.language)}>
+                          {selectedProject.language}
+                        </LanguageBadge>
+                      )}
+                      <StatItem>
+                        <i className="fa fa-star"></i>
+                        {selectedProject.stars} stars
+                      </StatItem>
+                      <StatItem>
+                        <i className="fa fa-code-fork"></i>
+                        {selectedProject.forks} forks
+                      </StatItem>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', fontSize: '0.9rem', color: '#999' }}>
+                      <span>
+                        <i className="fa fa-calendar"></i> <span>Criado em {formatDate(selectedProject.created_at)}</span>
+                      </span>
+                      <span>
+                        <i className="fa fa-clock"></i> <span>Atualizado em {formatDate(selectedProject.updated_at)}</span>
+                      </span>
+                    </div>
                   </div>
-                )}
 
-                {selectedProject.topics.length > 0 && (
-                  <div style={{ marginBottom: '1rem' }}>
-                    <strong>Tópicos:</strong>
-                    <TechStack style={{ marginTop: '0.5rem' }}>
-                      {selectedProject.topics.map((topic, index) => (
-                        <TechTag key={index} style={{ background: '#333', fontSize: '0.75rem' }}>
-                          #{topic}
-                        </TechTag>
-                      ))}
-                    </TechStack>
+                  <Text>{selectedProject.description || 'Sem descrição disponível.'}</Text>
+
+                  {selectedProject.technologies.length > 0 && (
+                    <div style={{ marginBottom: '1rem' }}>
+                      <strong>Tecnologias utilizadas:</strong>
+                      <TechStack style={{ marginTop: '0.5rem' }}>
+                        {selectedProject.technologies.map((tech, index) => (
+                          <TechTag key={index}>{tech}</TechTag>
+                        ))}
+                      </TechStack>
+                    </div>
+                  )}
+
+                  {selectedProject.topics.length > 0 && (
+                    <div style={{ marginBottom: '1rem' }}>
+                      <strong>Tópicos:</strong>
+                      <TechStack style={{ marginTop: '0.5rem' }}>
+                        {selectedProject.topics.map((topic, index) => (
+                          <TechTag key={index} style={{ background: '#333', fontSize: '0.75rem' }}>
+                            #{topic}
+                          </TechTag>
+                        ))}
+                      </TechStack>
+                    </div>
+                  )}
+
+                  <div style={{ padding: '1rem', background: '#1a1a1a', borderRadius: '8px', marginBottom: '1rem' }}>
+                    <strong>Informações técnicas:</strong>
+                    <ul style={{ margin: '0.5rem 0', paddingLeft: '1.5rem', fontSize: '0.9rem' }}>
+                      <li>Branch padrão: <code>{selectedProject.defaultBranch}</code></li>
+                      <li>Tamanho: {(selectedProject.size / 1024).toFixed(1)}MB</li>
+                      {selectedProject.hasPages && <li>✅ GitHub Pages disponível</li>}
+                      {selectedProject.isArchived && <li>📦 Repositório arquivado</li>}
+                      {selectedProject.isFork && <li>🍴 Fork de outro repositório</li>}
+                    </ul>
                   </div>
-                )}
+                </ModalBody>
 
-                <div style={{ padding: '1rem', background: '#1a1a1a', borderRadius: '8px', marginBottom: '1rem' }}>
-                  <strong>Informações técnicas:</strong>
-                  <ul style={{ margin: '0.5rem 0', paddingLeft: '1.5rem', fontSize: '0.9rem' }}>
-                    <li>Branch padrão: <code>{selectedProject.defaultBranch}</code></li>
-                    <li>Tamanho: {(selectedProject.size / 1024).toFixed(1)}MB</li>
-                    {selectedProject.hasPages && <li>✅ GitHub Pages disponível</li>}
-                    {selectedProject.isArchived && <li>📦 Repositório arquivado</li>}
-                    {selectedProject.isFork && <li>🍴 Fork de outro repositório</li>}
-                  </ul>
-                </div>
-              </ModalBody>
-
-              <ModalActions>
-                <Button onClick={() => openLink(selectedProject.repo)}>
-                  <i className="fa-brands fa-github"></i> <span>Ver no GitHub</span>
-                </Button>
-                {selectedProject.hasPages && (
-                  <Button onClick={() => openLink(selectedProject.link)}>
-                    <i className="fa-solid fa-eye"></i> <span>Ver Demo</span>
+                <ModalActions>
+                  <Button onClick={() => openLink(selectedProject.repo)}>
+                    <i className="fa-brands fa-github"></i> <span>Ver no GitHub</span>
                   </Button>
-                )}
-                <Button 
-                  className="gradient"
-                  onClick={() => openLink(selectedProject.clone_url)}
-                >
-                  <i className="fa fa-download"></i> <span>Clonar Repositório</span>
-                </Button>
-              </ModalActions>
-            </ModalContent>
-          </ModalOverlay>
-        )}
-      </AnimatePresence>, document.body)}
+                  {selectedProject.hasPages && (
+                    <Button onClick={() => openLink(selectedProject.link)}>
+                      <i className="fa-solid fa-eye"></i> <span>Ver Demo</span>
+                    </Button>
+                  )}
+                  <Button
+                    className="gradient"
+                    onClick={() => openLink(selectedProject.clone_url)}
+                  >
+                    <i className="fa fa-download"></i> <span>Clonar Repositório</span>
+                  </Button>
+                </ModalActions>
+              </ModalContent>
+            </ModalOverlay>
+          )}
+        </AnimatePresence>, document.body)}
     </ProjectsSection>
   );
 };

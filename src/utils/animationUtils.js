@@ -38,23 +38,23 @@ export const markAsAnimated = (section) => {
  */
 export const useOneTimeAnimation = (section, isVisible) => {
   const [hasAnimated, setHasAnimated] = useState(() => {
-    return hasBeenAnimated(section);
+  return hasBeenAnimated(section);
   });
 
   useEffect(() => {
-    if (isVisible && !hasAnimated) {
-      setHasAnimated(true);
-      markAsAnimated(section);
-    }
+  if (isVisible && !hasAnimated) {
+  setHasAnimated(true);
+  markAsAnimated(section);
+  }
   }, [isVisible, hasAnimated, section]);
 
   return {
-    shouldAnimate: !hasAnimated,
-    animationState: hasAnimated ? "visible" : (isVisible ? "visible" : "hidden"),
-    markAsAnimated: () => {
-      setHasAnimated(true);
-      markAsAnimated(section);
-    }
+  shouldAnimate: !hasAnimated,
+  animationState: hasAnimated ? "visible" : (isVisible ? "visible" : "hidden"),
+  markAsAnimated: () => {
+  setHasAnimated(true);
+  markAsAnimated(section);
+  }
   };
 };
 
