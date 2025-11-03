@@ -3,63 +3,63 @@ import styled, { createGlobalStyle, keyframes } from 'styled-components';
 // Animações globais
 const fadeIn = keyframes`
   from {
-    opacity: 0;
-    transform: translateY(20px);
+  opacity: 0;
+  transform: translateY(20px);
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
   }
 `;
 
 const slideInRight = keyframes`
   from {
-    transform: translateX(100%);
+  transform: translateX(100%);
   }
   to {
-    transform: translateX(0);
+  transform: translateX(0);
   }
 `;
 
 const slideInLeft = keyframes`
   from {
-    transform: translateX(-100%);
+  transform: translateX(-100%);
   }
   to {
-    transform: translateX(0);
+  transform: translateX(0);
   }
 `;
 
 const pulse = keyframes`
   0%, 100% {
-    opacity: 1;
+  opacity: 1;
   }
   50% {
-    opacity: 0.7;
+  opacity: 0.7;
   }
 `;
 
 const rotate = keyframes`
   from {
-    transform: rotate(0deg);
+  transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+  transform: rotate(360deg);
   }
 `;
 
 const shockwave = keyframes`
   0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(91, 255, 139, 0.7);
+  transform: scale(1);
+  box-shadow: 0 0 0 0 rgba(91, 255, 139, 0.7);
   }
   70% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 10px rgba(91, 255, 139, 0);
+  transform: scale(1.05);
+  box-shadow: 0 0 0 10px rgba(91, 255, 139, 0);
   }
   100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(91, 255, 139, 0);
+  transform: scale(1);
+  box-shadow: 0 0 0 0 rgba(91, 255, 139, 0);
   }
 `;
 
@@ -69,110 +69,111 @@ export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 
   * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   }
 
   html {
-    scroll-behavior: smooth;
-    font-size: 16px;
+  scroll-behavior: smooth;
+  font-size: 16px;
   }
 
   body {
-    font-family: ${props => props.theme.fonts.primary};
-    background: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.text};
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: ${props => props.theme.fonts.primary};
+  background: ${props => props.theme.colors.background};
+  color: ${props => props.theme.colors.text};
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   }
 
   body.no-scroll {
-    overflow: hidden;
+  overflow: hidden;
   }
 
   a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
   }
 
   button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
   }
 
   img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
   }
 
   // Utilitários
   .hide {
-    display: none !important;
+  display: none !important;
   }
 
   .gradient-text {
-    background: ${props => props.theme.colors.gradientText};
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  background: ${props => props.theme.colors.gradientText};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   }
 
   .animate-fade-in {
-    animation: ${fadeIn} 0.8s ease-out;
+  animation: ${fadeIn} 0.8s ease-out;
   }
 
   .animate-slide-in-right {
-    animation: ${slideInRight} 0.6s ease-out;
+  animation: ${slideInRight} 0.6s ease-out;
   }
 
   .animate-slide-in-left {
-    animation: ${slideInLeft} 0.6s ease-out;
+  animation: ${slideInLeft} 0.6s ease-out;
   }
 
   .animate-pulse {
-    animation: ${pulse} 2s infinite;
+  animation: ${pulse} 2s infinite;
   }
 
   .animate-rotate {
-    animation: ${rotate} 2s linear infinite;
+  animation: ${rotate} 2s linear infinite;
   }
 
   .animate-shockwave {
-    animation: ${shockwave} 1s ease-out;
+  animation: ${shockwave} 1s ease-out;
   }
 
   // Scrollbar personalizada
   ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: ${props => props.theme.colors.backgroundAlt};
+  background: ${props => props.theme.colors.backgroundAlt};
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${props => props.theme.colors.primary};
-    border-radius: 4px;
+  background: ${props => props.theme.colors.primary};
+  border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: ${props => props.theme.colors.secondary};
+  background: ${props => props.theme.colors.secondary};
   }
 `;
 
 // Componentes styled reutilizáveis
 export const Container = styled.div`
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
   padding: 0 ${props => props.theme.spacing.md};
 
   @media (min-width: ${props => props.theme.breakpoints.desktop}) {
-    padding: 0 ${props => props.theme.spacing.xl};
+  margin: 0 auto;
+  padding: 0 ${props => props.theme.spacing.xl};
   }
 `;
 
@@ -215,27 +216,27 @@ export const Button = styled.button`
   overflow: hidden;
 
   &:hover {
-    background: transparent;
-    color: ${props => props.theme.colors.text};
-    box-shadow: 0.3rem 0.3rem ${props => props.theme.colors.text};
-    transform: translate(-0.1rem, -0.1rem);
+  background: transparent;
+  color: ${props => props.theme.colors.text};
+  box-shadow: 0.3rem 0.3rem ${props => props.theme.colors.text};
+  transform: translate(-0.1rem, -0.1rem);
   }
 
   &:active {
-    transform: translate(0, 0);
-    box-shadow: 0.1rem 0.1rem ${props => props.theme.colors.text};
+  transform: translate(0, 0);
+  box-shadow: 0.1rem 0.1rem ${props => props.theme.colors.text};
   }
 
   &.gradient {
-    background: ${props => props.theme.colors.gradientText};
-    border-color: transparent;
-    color: ${props => props.theme.colors.background};
-    
-    &:hover {
-      background: transparent;
-      color: #ffffff;
-      border-color: ${props => props.theme.colors.primary};
-    }
+  background: ${props => props.theme.colors.gradientText};
+  border-color: transparent;
+  color: ${props => props.theme.colors.background};
+  
+  &:hover {
+  background: transparent;
+  color: #ffffff;
+  border-color: ${props => props.theme.colors.primary};
+  }
   }
 `;
 
@@ -275,9 +276,9 @@ export const Card = styled.div`
   border: 1px solid ${props => props.theme.colors.border};
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: ${props => props.theme.shadows.strong};
-    border-color: ${props => props.theme.colors.primary};
+  transform: translateY(-5px);
+  box-shadow: ${props => props.theme.shadows.strong};
+  border-color: ${props => props.theme.colors.primary};
   }
 `;
 

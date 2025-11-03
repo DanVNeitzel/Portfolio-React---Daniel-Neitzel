@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './styles/GlobalStyles';
 import { theme } from './styles/theme';
@@ -11,10 +12,147 @@ import Navigation from './components/Navigation';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import BlogMenu from './components/BlogMenu';
+import BlogPost from './components/BlogPost';
 import Footer from './components/Footer';
 
 // Styled components
 import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const Modal = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: ${props => props.theme.spacing.sm};
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    padding: ${props => props.theme.spacing.xs};
+    align-items: flex-start;
+    padding-top: ${props => props.theme.spacing.xl};
+  }
+`;
+
+const ModalContent = styled(motion.div)`
+  background: ${props => props.theme.colors.background};
+  border-radius: 12px;
+  width: 90%;
+  max-width: 800px;
+  height: 90vh;
+  max-height: 800px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid ${props => props.theme.colors.border};
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 95%;
+    height: 95vh;
+    max-height: none;
+    border-radius: 8px;
+  }
+`;
+
+const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${props => props.theme.spacing.md};
+  border-bottom: 1px solid ${props => props.theme.colors.border};
+  background: ${props => props.theme.colors.backgroundAlt};
+  position: relative;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    padding: ${props => props.theme.spacing.sm};
+    flex-direction: column;
+    align-items: stretch;
+    gap: ${props => props.theme.spacing.sm};
+  }
+`;
+
+const ModalTitle = styled.h3`
+  margin: 0;
+  color: ${props => props.theme.colors.text};
+  font-size: 1.2rem;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    font-size: 1rem;
+    line-height: 1.3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: ${props => props.theme.colors.text};
+  padding: ${props => props.theme.spacing.xs};
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+  background: ${props => props.theme.colors.border};
+  color: ${props => props.theme.colors.primary};
+  }
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    font-size: 1.2rem;
+    padding: 4px 8px;
+    margin-left: ${props => props.theme.spacing.sm};
+    align-self: flex-start;
+  }
+`;
+
+const PDFContainer = styled.div`
+  height: calc(100% - 80px);
+  width: 100%;
+
+  iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0 0 12px 12px;
+  }
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    height: calc(100% - 120px);
+  }
+`;
+
+const DownloadButton = styled.button`
+  font-size: 0.9rem;
+  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
+  background: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.background};
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+  background: ${props => props.theme.colors.secondary};
+  transform: translateY(-2px);
+  }
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: ${props => props.theme.spacing.sm};
+    text-align: center;
+  }
+`;
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -35,8 +173,8 @@ const BackgroundPattern = styled.div`
   bottom: 0;
   opacity: 0.2;
   background-image: 
-    radial-gradient(circle at 25% 25%, ${props => props.theme.colors.primary} 2px, transparent 2px),
-    radial-gradient(circle at 75% 75%, ${props => props.theme.colors.secondary} 1px, transparent 1px);
+  radial-gradient(circle at 25% 25%, ${props => props.theme.colors.primary} 2px, transparent 2px),
+  radial-gradient(circle at 75% 75%, ${props => props.theme.colors.secondary} 1px, transparent 1px);
   background-size: 50px 50px, 30px 30px;
   background-position: 0 0, 25px 25px;
   pointer-events: none;
@@ -57,6 +195,7 @@ function App() {
   const [isMenuOpen, { toggle: toggleMenu, setFalse: closeMenu }] = useToggle(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isCVModalOpen, setIsCVModalOpen] = useState(false);
   const scrollPosition = useScrollPosition();
 
   // Register Service Worker for PWA
@@ -70,7 +209,7 @@ function App() {
   const handleSectionChange = (section) => {
     setActiveSection(section);
     closeMenu();
-    
+
     // Scroll to section
     const element = document.getElementById(section);
     if (element) {
@@ -81,11 +220,28 @@ function App() {
     }
   };
 
+  // Handle CV modal
+  const openCVModal = useCallback(() => {
+    setIsCVModalOpen(true);
+    closeMenu();
+  }, [closeMenu]);
+
+  const closeCVModal = useCallback(() => {
+    setIsCVModalOpen(false);
+  }, []);
+
+  // Listen for CV modal events
+  useEffect(() => {
+    const handleOpenCVModal = () => openCVModal();
+    window.addEventListener('openCVModal', handleOpenCVModal);
+    return () => window.removeEventListener('openCVModal', handleOpenCVModal);
+  }, [openCVModal]);
+
   // Update active section based on scroll position
   useEffect(() => {
-    const sections = ['home', 'skills', 'projects'];
+    const sections = ['home', 'skills', 'projects', 'blog'];
     const sectionElements = sections.map(id => document.getElementById(id));
-    
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -124,8 +280,9 @@ function App() {
   useEffect(() => {
     const titles = {
       home: 'Daniel Neitzel - Desenvolvedor Front-End',
-      skills: 'Conhecimentos & Habilidades - Daniel Neitzel',
-      projects: 'Projetos - Daniel Neitzel'
+      skills: 'Especialidades - Daniel Neitzel',
+      projects: 'Projetos - Daniel Neitzel',
+      blog: 'Blog - Daniel Neitzel'
     };
 
     document.title = titles[activeSection] || titles.home;
@@ -143,9 +300,9 @@ function App() {
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, [isMenuOpen, closeMenu]);
 
-  // Disable body scroll when menu is open on mobile
+  // Disable body scroll when menu or modal is open
   useEffect(() => {
-    if (isMenuOpen) {
+    if (isMenuOpen || isCVModalOpen) {
       document.body.classList.add('no-scroll');
     } else {
       document.body.classList.remove('no-scroll');
@@ -154,23 +311,23 @@ function App() {
     return () => {
       document.body.classList.remove('no-scroll');
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isCVModalOpen]);
 
   if (!isLoaded) {
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           height: '100vh',
           background: theme.colors.background,
           color: theme.colors.text
         }}>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ 
-              fontSize: '2rem', 
+            <div style={{
+              fontSize: '2rem',
               marginBottom: '1rem',
               background: theme.colors.gradientText,
               WebkitBackgroundClip: 'text',
@@ -179,9 +336,9 @@ function App() {
             }}>
               Carregando...
             </div>
-            <div style={{ 
-              width: '50px', 
-              height: '3px', 
+            <div style={{
+              width: '50px',
+              height: '3px',
               background: theme.colors.gradientText,
               margin: '0 auto',
               animation: 'pulse 1.5s infinite'
@@ -195,38 +352,87 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <AppContainer>
-        <BackgroundPattern />
-        <ScrollProgress progress={scrollProgress} />
-        
-        <Header 
-          onMenuToggle={toggleMenu}
-          isMenuOpen={isMenuOpen}
-        />
-        
-        <Navigation
-          isOpen={isMenuOpen}
-          onClose={closeMenu}
-          activeSection={activeSection}
-          onSectionChange={handleSectionChange}
-        />
+      <Router>
+        <AppContainer>
+          <BackgroundPattern />
+          <ScrollProgress progress={scrollProgress} />
 
-        <MainContent>
-          <section id="home">
-            <About onSectionChange={handleSectionChange} />
-          </section>
-          
-          <section id="skills">
-            <Skills onSectionChange={handleSectionChange} />
-          </section>
-          
-          <section id="projects">
-            <Projects />
-          </section>
-        </MainContent>
+          <Header
+            onMenuToggle={toggleMenu}
+            isMenuOpen={isMenuOpen}
+          />
 
-        <Footer />
-      </AppContainer>
+          <Navigation
+            isOpen={isMenuOpen}
+            onClose={closeMenu}
+            activeSection={activeSection}
+            onSectionChange={handleSectionChange}
+            onCVModalOpen={openCVModal}
+          />
+
+          <Routes>
+            <Route path="/" element={
+              <MainContent>
+                <section id="home">
+                  <About onSectionChange={handleSectionChange} />
+                </section>  <section id="skills">
+                  <Skills onSectionChange={handleSectionChange} />
+                </section>
+
+                <section id="projects">
+                  <Projects />
+                </section>
+
+                <section id="blog">
+                  <BlogMenu />
+                </section>
+              </MainContent>
+            } />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+          </Routes>
+
+          <Footer />
+
+          <AnimatePresence>
+            {isCVModalOpen && (
+              <Modal
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={closeCVModal}
+              >
+                <ModalContent
+                  onClick={(e) => e.stopPropagation()}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                >
+                  <ModalHeader>
+                    <ModalTitle>
+                      Currículo - Daniel Neitzel Vieira
+                      <CloseButton onClick={closeCVModal}>
+                        ✕
+                      </CloseButton>
+                    </ModalTitle>
+                    <DownloadButton
+                      onClick={() => window.open('https://danielneitzel.dev/CV%20-%20Daniel%20Neitzel%20Vieira.pdf', '_blank')}
+                    >
+                      Abrir em uma nova aba
+                    </DownloadButton>
+                  </ModalHeader>
+                  <PDFContainer>
+                    <iframe
+                      src="https://danielneitzel.dev/CV%20-%20Daniel%20Neitzel%20Vieira.pdf"
+                      title="Currículo Daniel Neitzel Vieira"
+                    />
+                  </PDFContainer>
+                </ModalContent>
+              </Modal>
+            )}
+          </AnimatePresence>
+        </AppContainer>
+      </Router>
     </ThemeProvider>
   );
 }
