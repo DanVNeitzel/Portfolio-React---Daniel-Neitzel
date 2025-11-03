@@ -1,13 +1,13 @@
 const CACHE_NAME = 'daniel-neitzel-portfolio-v1';
 const urlsToCache = [
-  '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
-  '/images/avatar.jpg',
-  '/images/logo.png',
-  '/images/workdesk_v2.png',
-  '/images/webApp.png',
-  '/manifest.json'
+  './',
+  './static/js/bundle.js',
+  './static/css/main.css',
+  './images/avatar.jpg',
+  './images/logo.png',
+  './images/workdesk_v2.png',
+  './images/webApp.png',
+  './manifest.json'
 ];
 
 // Install Service Worker
